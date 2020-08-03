@@ -1,0 +1,28 @@
+{
+  "name": "fancytodo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laurentiusedrick/fancytodo-server.git"
+  },
+  "author": "laurentiusedrick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laurentiusedrick/fancytodo-server/issues"
+  },
+  "homepage": "https://github.com/laurentiusedrick/fancytodo-server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.3.0",
+    "sequelize": "^6.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0"
+  }
+}
