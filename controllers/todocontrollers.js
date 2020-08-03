@@ -2,13 +2,13 @@
 
 const { Todo } = require("../models/index.js")
 
-class Controllers {
+class TodoControllers {
     static async postTodosHandler (req,res) {
         let form = {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            Due_date: new Date(req.body.Due_date),
+            due_date: new Date(req.body.due_date),
         }
         try {
             const result = await Todo.create(form)
@@ -42,7 +42,7 @@ class Controllers {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            Due_date: new Date(req.body.Due_date),
+            due_date: new Date(req.body.due_date),
         }
         try {
             const result = await Todo.update(form,{where:{id:req.params.id},returning:true})
@@ -68,4 +68,4 @@ class Controllers {
     }
 }
 
-module.exports = Controllers
+module.exports = TodoControllers
