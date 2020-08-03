@@ -2,19 +2,19 @@
 # fancytodo-server
 Providing a todo list services which can be added, manipulated, and deleted later
 
-## URL
+* URL
 
 /todos
 
-## Method:
+* Method:
 
 POST
 
-## URL Params
+* URL Params
 
 None
 
-## Data Params
+* Data Params
 
 Required:
 
@@ -23,7 +23,7 @@ description=[string]
 status=[boolean]
 Due_date=[timestamp]
 
-## Success Response:
+* Success Response:
 
 Code: 201 CREATED
 Content: {
@@ -36,7 +36,7 @@ Content: {
     "createdAt": "2020-08-03T09:53:47.174Z"
 }
 
-## Error Response:
+* Error Response:
 
 Code: 400 BAD REQUEST
 Content: { error : "Validation error" }
@@ -46,23 +46,23 @@ Content: { error : "SequelizeDatabaseError" }
 
 ==================================================================================
 
-## URL
+* URL
 
 /todos
 
-## Method:
+* Method:
 
 GET
 
-## URL Params
+* URL Params
 
 None
 
-## Data Params
+* Data Params
 
 None
 
-## Success Response:
+* Success Response:
 
 Code: 200 OK
 Content: [
@@ -86,32 +86,32 @@ Content: [
     }
 ]
 
-## Error Response:
+* Error Response:
 
 Code: 500 INTERNAL SERVER ERROR
 Content: { error : "SequelizeDatabaseError" }
 
 ==================================================================================
 
-## URL
+* URL
 
 /todos/:id
 
-## Method:
+* Method:
 
 GET
 
-## URL Params
+* URL Params
 
 Required:
 
 id=[integer]
 
-## Data Params
+* Data Params
 
 None
 
-## Success Response:
+* Success Response:
 
 Code: 200 OK
 Content: {
@@ -124,7 +124,7 @@ Content: {
     "updatedAt": "2020-08-03T10:07:35.858Z"
 }
 
-## Error Response:
+* Error Response:
 
 Code: 404 FILE NOT FOUND
 Content: { error : "File not Found" }
@@ -134,21 +134,21 @@ Content: { error : "SequelizeDatabaseError" }
 
 ==================================================================================
 
-## URL
+* URL
 
 /todos/:id
 
-## Method:
+* Method:
 
 PUT
 
-## URL Params
+* URL Params
 
 Required:
 
 id=[integer]
 
-## Data Params
+* Data Params
 
 Optional:
 
@@ -157,7 +157,7 @@ description=[string]
 status=[boolean]
 Due_date=[timestamp]
 
-## Success Response:
+* Success Response:
 
 Code: 200 OK
 Content: {
@@ -170,7 +170,7 @@ Content: {
     "updatedAt": "2020-08-03T10:57:41.996Z"
 }
 
-## Error Response:
+* Error Response:
 
 Code: 400 BAD REQUEST
 Content: { error : "Validation error" }
@@ -183,25 +183,25 @@ Content: { error : "SequelizeDatabaseError" }
 
 ==================================================================================
 
-## URL
+* URL
 
 /todos/:id
 
-## Method:
+* Method:
 
 DELETE
 
-## URL Params
+* URL Params
 
 Required:
 
 id=[integer]
 
-## Data Params
+* Data Params
 
 None
 
-## Success Response:
+* Success Response:
 
 Code: 200 OK
 Content: {
@@ -214,7 +214,7 @@ Content: {
     "updatedAt": "2020-08-03T10:57:41.996Z"
 }
 
-## Error Response:
+* Error Response:
 
 Code: 404 FILE NOT FOUND
 Content: { error : "File not Found" }
