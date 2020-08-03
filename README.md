@@ -96,17 +96,16 @@
   
 *  **URL Params**
 
-  /:id
+    /:id
 
    **Required:**
  
    `id=[integer]`
 
-   **Optional:**
 
 * **Data Params**
 
-  `let input = { title: req.body.title, description: req.body.description, status: req.body.status, Due_date: req.body.Due_date }`
+  `{ title: req.body.title, description: req.body.description, status: req.body.status, Due_date: req.body.Due_date }`
 
 * **Success Response:**
   
@@ -127,7 +126,9 @@
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
 
-  **Delete todo**
+
+
+**Delete Todo**
 ----
 
 * **URL**
@@ -140,16 +141,14 @@
   
 *  **URL Params**
 
-  /:id
+    /:id
 
-   **Required:**
+    **Required:**
  
    `id=[integer]`
 
 * **Success Response:**
   
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
-
   * **Code:** 200 <br />
     **Content:** `1`
  
