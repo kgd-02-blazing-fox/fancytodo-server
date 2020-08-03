@@ -16,14 +16,17 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      // allowNull: false
     },
     description: DataTypes.STRING,
     status: {
       type: DataTypes.STRING,
-      allowNull: false
+      // allowNull: false
     },
-    Due_date: DataTypes.DATE
+    Due_date: {
+      type: DataTypes.DATE,
+      isAfter: "2020-08-03"
+    }
   }, {
     sequelize,
     modelName: 'Todo',

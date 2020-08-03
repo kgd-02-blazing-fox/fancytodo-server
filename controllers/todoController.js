@@ -1,6 +1,6 @@
-const { Todo } = require('../models/index.js')
+const { Todo, User } = require('../models/index.js')
 
-class Controller {
+class todoController {
   static readTodo(req, res) {
     Todo.findAll()
       .then(data => {
@@ -109,4 +109,30 @@ class Controller {
 
 }
 
-module.exports = { Controller }
+class UserController{
+  static registerUser(req,res){
+    let input = {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    }
+
+    User.create(input)
+    .then(data=>{
+      res.status(201).json({
+        name: data.name,
+        email: data.email
+      })
+    })
+    .catch(err=>{
+      res.status(500).json(err)
+    })
+  }
+
+  static loginUser(req,res){
+
+  }
+
+}
+
+module.exports = { todoController, UserController }
