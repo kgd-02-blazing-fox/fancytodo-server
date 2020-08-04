@@ -14,10 +14,62 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Todo.init({
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    status: DataTypes.STRING,
-    due_date: DataTypes.DATE
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Field title can\'t be empty!'
+        },
+        notNull: {
+          msg: 'Required todo title.'
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Field Description Cannot Be Empty'
+        },
+        notNull: {
+          msg: 'Required todo description.'
+        }
+      }
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Field Status Cannot Be Empty'
+        },
+        notNull: {
+          msg: 'Required todo status.'
+        }
+      }
+    },
+    due_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Field Due Date Cannot Be Empty'
+        },
+        notNull: {
+          msg: 'Required todo due date.'
+        },
+        isDate: {
+          args: true,
+          msg: 'Field Due Date Invalid Format'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo',
