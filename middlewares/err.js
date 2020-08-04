@@ -14,6 +14,20 @@ function customError(err, req, res, next) {
             })
             break;
 
+        case "Unauthorized":
+            res.status(401).json({
+                code: "401",
+                message: "Please login to use this feature!"
+            })
+            break;
+
+        case "Not Found":
+            res.status(404).json({
+                code: "404",
+                message: "Not Found"
+            })
+            break;
+
         default:
             res.status(500).json({
                 code: "500",

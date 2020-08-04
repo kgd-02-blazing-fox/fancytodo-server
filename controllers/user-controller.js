@@ -16,7 +16,6 @@ class UserController {
                 res.status(201).json({
                     id: result.id,
                     email: result.email,
-                    password: result.password
                 })
             })
             .catch(err => {
@@ -29,6 +28,7 @@ class UserController {
     static login(req, res, next) {
         let inputEmail = req.body.email
         let inputPassword = req.body.password
+        let token = signToken(payload)
 
         User.findOne({
             where: {
@@ -41,7 +41,7 @@ class UserController {
                         let payload = {
                             email: result.email
                         }
-                        res.status(200).json({ token: signToken(payload) })
+                        res.status(200).json({ token })
                     }
                     else {
                         throw { name: "Bad Request" };

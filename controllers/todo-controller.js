@@ -11,6 +11,15 @@ class ToDoController {
         let UserId = req.currentUser.id;
 
         try {
+
+            let createdToDo = await ToDo.create({
+                title: toDotitle,
+                description,
+                status,
+                dueDate,
+                UserId
+            })
+            
             res.status(201).json(
                 {
                     title: createdToDo.title,

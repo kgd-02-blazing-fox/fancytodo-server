@@ -18,23 +18,21 @@ async function authentication(req, res, next) {
                 req.currentUser = currentUser
                 next();
             } else {
-                res.status(401).json(
-                    {
-                        code: "401",
-                        message: "Please login first!"
-                    }
-                )
+                next ({
+                    code: "401",
+                    message: "Please login first!"
+                })
             }
 
         } catch (err) {
-            res.status(500).json({
+            next ({
                 code: "500",
                 message: "Internal server error"
             })
         }
 
     } else {
-        res.status(401).json({
+        next ({
             code: "401",
             message: "Please login first!"
         })
@@ -50,20 +48,20 @@ async function authorization(req, res, next) {
             if (currentToDo.UserId == req.currentUser.id) {
                 next();
             } else {
-                res.status(401).json({
+                next ({
                     code: "401",
                     message: "You dont have an authorize for this data!"
                 })
             }
         } else {
-            res.status(404).json({
+            next ({
                 code: "404",
                 message: "Not Found"
             })
         }
 
     } catch (err) {
-        res.status(500).json({
+        next ({
             code: "500",
             message: "Internal server error"
         })
