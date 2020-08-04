@@ -1,60 +1,42 @@
-const { Todo } = require('../models/index')
+const { Todo, User } = require('../models/index')
 
 class TodoController {
 
   static async createTodo(req, res, next) {
-    console.log(req.body)
-    let { title, description, status, due_date } = req.body
+    const { title, description, status, due_date } = req.body
     try {
-      const todo = await Todo.create({ title, description, status, due_date })
+      const todo = await Todo.create({ title, description, status, due_date, UserId: req.userLogin.id })
       res.status(201).json(todo)
     } catch (err) {
-      console.log(err)
-      // res.status(500).json(err.name)
-      res.status(500).json({
-        error: 'Internal server error'
-      })
+      next(err)
     }
   }
 
   static async getTodos(req, res, next) {
+    const UserId = req.userLogin.id
     try {
-      const todos = await Todo.findAll()
+      const todos = await Todo.findAll({ where: { UserId } })
       res.status(200).json(todos)
     } catch (err) {
-      console.log(err)
-      // res.status(500).json(err.name)
-      res.status(500).json({
-        error: 'Internal server error'
-      })
+      next(err)
     }
   }
 
   static async getTodo(req, res, next) {
+    const id = req.params.id
     try {
-      const todo = await Todo.findOne({
-        where: {
-          id: req.params.id
-        }
-      })
+      const todo = await Todo.findOne({ where: { id: req.params.id } }) 
       res.status(200).json(todo)
     } catch (err) {
-      console.log(err)
-      // res.status(500).json(err.name)
-      res.status(500).json({
-        error: 'Internal server error'
-      })
+      next(err)
     }
   }
 
   static async putTodo(req, res, next) {
-    let { title, description, status, due_date } = req.body
+    const { title, description, status, due_date } = req.body
+    const id = req.params.id
     try {
-      const findTodo = await Todo.findOne({
-        where: {
-          id: req.params.id
-        }
-      })
+      const findTodo = await Todo.findOne({ where: { id } })
       if (!findTodo) {
         throw ({ name: "Todo not found" })
       } else {
@@ -68,11 +50,7 @@ class TodoController {
         })
       }
     } catch (err) {
-      console.log(err)
-      // res.status(500).json(err.name)
-      res.status(500).json({
-        error: 'Internal server error'
-      })
+      next(err)
     }
   }
 
@@ -96,11 +74,7 @@ class TodoController {
         })
       }
     } catch (err) {
-      console.log(err.name)
-      // res.status(500).json(err.name)
-      res.status(500).json({
-        error: 'Internal server error'
-      })
+      next(err)
     }
   }
 }

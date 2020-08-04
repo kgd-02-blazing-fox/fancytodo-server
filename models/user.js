@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // 1 User memiliki banyak Todo
+      User.hasMany(models.Todo)
     }
   };
   User.init({
@@ -30,11 +31,14 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       validate: {
+        len: {
+          args: [5, 16],
+          msg: 'Password length more than 5 and less than 16'
+        },
         notEmpty: {
           args: true,
           msg: 'Field password can\'t be empty!'
         },
-
       }
     }
   }, {

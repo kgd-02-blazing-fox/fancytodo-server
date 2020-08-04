@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // 1 todo dimiliki 1 user
+      Todo.belongsTo(models.User, { foreignKey: 'UserId' })
+
     }
   };
   Todo.init({
@@ -33,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Field Description can\'t Be Empty'
+          msg: 'Field description can\'t be empty'
         },
         notNull: {
           msg: 'Required todo description.'
@@ -46,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Field Status can\'t Be Empty'
+          msg: 'Field status can\'t be empty'
         },
         notNull: {
           msg: 'Required todo status.'
@@ -59,17 +61,18 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Field Due Date can\'t Be Empty'
+          msg: 'Field due date can\'t be empty'
         },
         notNull: {
           msg: 'Required todo due date.'
         },
         isDate: {
           args: true,
-          msg: 'Field Due Date Invalid Format'
+          msg: 'Field due date invalid format'
         }
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Todo',

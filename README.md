@@ -38,18 +38,90 @@
     "description": "Ini adalah description",
     "status": "Urgent",
     "due_date": "2020-08-26T00:00:00.000Z",
+    "UserId": 1,
     "updatedAt": "2020-08-04T01:18:04.601Z",
     "createdAt": "2020-08-04T01:18:04.601Z"
     }
     ```
 
 * **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+        **Content:** 
+        ```json
+        { "error" : ["Required todo title."] }
+        ```
+
+        OR
+
+        ```json
+        { "error" : ["Required todo description."] }
+        ```
+
+        OR
+
+        ```json
+        { "error" : ["Required todo status."] }
+        ```
+
+        OR
+
+        ```json
+        { "error" : ["Required todo due date."] }
+        ```
+        OR
+
+        ```json
+        { "error" : ["Field title can't be empty"] }
+        ```
+        OR
+
+        ```json
+        { "error" : ["Field description can't be empty"] }
+        ```
+        OR
+
+        ```json
+        { "error" : ["Field status can't be empty"] }
+        ```
+        OR
+
+        ```json
+        { "error" : ["Field due date can't be empty"] }
+        ```
+        OR
+
+        ```json
+        { "error" : ["Field due date invalid format"] }
+        ```
+        OR
+
+        ```json
+        { "error": "You have invalid token, please login!" }
+        ```
+
+    OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+        **Content:** 
+        ```json
+        { "error": "You are unauthenticated to make this request" }
+        ```
+
+        OR
+
+        ```json
+        { "error": "You are unauthorized to make this request" }
+        ```
+
+    OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
       **Content:** 
       ```json
       { "error" : "Internal server error" }
       ```
+      
+      
 
 ----
 
@@ -80,27 +152,47 @@
     ```json
     [
       {
-          "id": 1,
-          "title": "Ini adalah title",
-          "description": "Ini adalah description",
-          "status": "Urgent",
-          "due_date": "2020-08-26T00:00:00.000Z",
-          "createdAt": "2020-08-04T01:16:08.143Z",
-          "updatedAt": "2020-08-04T01:16:08.143Z"
+      "id": 1,
+      "title": "Ini adalah title",
+      "description": "Ini adalah description",
+      "status": "Urgent",
+      "due_date": "2020-08-26T00:00:00.000Z",
+      "createdAt": "2020-08-04T01:16:08.143Z",
+      "updatedAt": "2020-08-04T01:16:08.143Z"
       },
       {
-          "id": 2,
-          "title": "Ini adalah title2",
-          "description": "Ini adalah description2",
-          "status": "Urgent",
-          "due_date": "2020-08-26T00:00:00.000Z",
-          "createdAt": "2020-08-04T01:16:08.143Z",
-          "updatedAt": "2020-08-04T01:16:08.143Z"
+      "id": 2,
+      "title": "Ini adalah title2",
+      "description": "Ini adalah description2",
+      "status": "Urgent",
+      "due_date": "2020-08-26T00:00:00.000Z",
+      "createdAt": "2020-08-04T01:16:08.143Z",
+      "updatedAt": "2020-08-04T01:16:08.143Z"
       } 
     ]
     ```
  
 * **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+        **Content:** 
+        ```json
+        { "error": "You have invalid token, please login!" }
+        ```
+      OR
+
+  * **Code:** 404 UNAUTHORIZED <br /> 
+      **Content:** 
+      ```json
+      { "error": "You are unauthenticated to make this request" }
+      ```
+
+      OR
+
+      ```json
+      { "error": "You are unauthorized to make this request" }
+      ```
+
+    OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
       **Content:** 
@@ -121,6 +213,12 @@
 * **Method:**
 
   `GET`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | token | jsonwebtoken | true |
   
 *  **URL Params**
 
@@ -138,17 +236,39 @@
     **Content:** 
     ```json
     {
-          "id": 1,
-          "title": "Ini adalah title",
-          "description": "Ini adalah description",
-          "status": "Urgent",
-          "due_date": "2020-08-26T00:00:00.000Z",
-          "createdAt": "2020-08-04T01:16:08.143Z",
-          "updatedAt": "2020-08-04T01:16:08.143Z"
+    "id": 1,
+    "title": "Ini adalah title",
+    "description": "Ini adalah description",
+    "status": "Urgent",
+    "due_date": "2020-08-26T00:00:00.000Z",
+    "UserId": 1,
+    "createdAt": "2020-08-04T01:16:08.143Z",
+    "updatedAt": "2020-08-04T01:16:08.143Z"
     }
     ```
 
 * **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+      **Content:** 
+      ```json
+      { "error": "You have invalid token, please login!" }
+      ```
+
+      OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+      **Content:** 
+      ```json
+      { "error": "You are unauthenticated to make this request" }
+      ```
+
+      OR
+
+      ```json
+      { "error": "You are unauthorized to make this request" }
+      ```
+
+    OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
       **Content:** 
@@ -169,6 +289,12 @@
 * **Method:**
 
   `PUT`
+
+* **Request Headers**
+
+| key | value | required |
+| :---: | :---: | :---: |
+| token | jsonwebtoken | true |
   
 *  **URL Params**
 
@@ -194,6 +320,27 @@
     ```
 
 * **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+      **Content:** 
+      ```json
+      { "error": "You have invalid token, please login!" }
+      ```
+
+      OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+      **Content:** 
+      ```json
+      { "error": "You are unauthenticated to make this request" }
+      ```
+
+      OR
+
+      ```json
+      { "error": "You are unauthorized to make this request" }
+      ```
+
+    OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
       **Content:** 
@@ -214,6 +361,12 @@
 * **Method:**
 
   `DELETE`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | token | jsonwebtoken | true |
   
 *  **URL Params**
 
@@ -234,6 +387,27 @@
     ```
  
 * **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+      **Content:** 
+      ```json
+      { "error": "You have invalid token, please login!" }
+      ```
+
+      OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+      **Content:** 
+      ```json
+      { "error": "You are unauthenticated to make this request" }
+      ```
+
+      OR
+
+      ```json
+      { "error": "You are unauthorized to make this request" }
+      ```
+
+    OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
       **Content:** 
@@ -283,6 +457,28 @@
     ```
 
 * **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+        **Content:** 
+        ```json
+        { "error" : ["Field email can't be empty!"] }
+        ```
+        OR
+        ```json
+        { "error" : "Your email already exist" }
+        ```
+        OR
+        ```json
+        { "error" : ["Field password can't be empty!"] }
+        ```
+        OR
+        ```json
+        { "error" : ["Validation isEmail on email failed"] }
+        ```
+        OR
+        ```json
+        { "error" : ["Password length more than 5 and less than 16"] }
+        ```
+      OR    
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
       **Content:** 
@@ -325,7 +521,12 @@
     ```
 
 * **Error Response:**
-
+  * **Code:** 400 BAD REQUEST <br />
+        **Content:** 
+        ```json
+        { "error" : "Invalid email & password!" }
+        ```
+      OR
   * **Code:** 500 INTERNAL SERVER ERROR <br />
       **Content:** 
       ```json
