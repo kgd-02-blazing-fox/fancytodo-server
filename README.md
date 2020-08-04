@@ -42,6 +42,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
 
         Code: 400 BAD REQUEST
         Content: { error : "Validation error" }
+        
+        Code: 401 UNAUTHORIZED
+        Content: { error : "Access denied" }
 
         Code: 500 INTERNAL ERROR
         Content: { error : "SequelizeDatabaseError" }
@@ -90,6 +93,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
 
 * Error Response:
 
+        Code: 401 UNAUTHORIZED
+        Content: { error : "Access denied" }
+
         Code: 500 INTERNAL SERVER ERROR
         Content: { error : "SequelizeDatabaseError" }
 
@@ -127,6 +133,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
         }
 
 * Error Response:
+
+        Code: 401 UNAUTHORIZED
+        Content: { error : "Unauthorized access" }
 
         Code: 404 FILE NOT FOUND
         Content: { error : "File not Found" }
@@ -176,6 +185,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
 
         Code: 400 BAD REQUEST
         Content: { error : "Validation error" }
+        
+        Code: 401 UNAUTHORIZED
+        Content: { error : "Unauthorized access" }
 
         Code: 404 FILE NOT FOUND
         Content: { error : "File not Found" }
@@ -218,8 +230,95 @@ Providing a todo list services which can be added, manipulated, and deleted late
 
 * Error Response:
 
+        Code: 401 UNAUTHORIZED
+        Content: { error : "Unauthorized access" }
+
         Code: 404 FILE NOT FOUND
         Content: { error : "File not Found" }
+
+        Code: 500 INTERNAL SERVER ERROR
+        Content: { error : "SequelizeDatabaseError" }
+        
+## POST register:
+
+* URL:
+
+        /register
+
+* Method:
+
+        POST
+
+* URL Params:
+
+        None
+        
+* Data Params:
+
+        Required:
+
+        firstname=[string]
+        email=[string]
+        password=[string]
+        
+        Optional:
+
+        lastname=[string]
+
+* Success Response:
+
+        Code: 201 CREATED
+        Content: {
+            "id": 8,
+            "firstname": "John",
+            "lastname": "Doe",
+            "email": "Johndoe2@gmail.com",
+            "password": "$2a$10$GWM8zFoEAWCoZfOY4JWlouUYzYcSMByZokEgFqyPrFwGoKV/saBo.",
+            "updatedAt": "2020-08-04T10:32:56.249Z",
+            "createdAt": "2020-08-04T10:32:56.249Z",
+            "fullname": "John Doe"
+        }
+
+* Error Response:
+
+        Code: 400 BAD REQUEST
+        Content: { error : "SequelizeValidationError" , error :"SequelizeUniqueConstraintError"}
+
+        Code: 500 INTERNAL SERVER ERROR
+        Content: { error : "SequelizeDatabaseError" }
+        
+## POST login:
+
+* URL:
+
+        /login
+
+* Method:
+
+        POST
+
+* URL Params:
+
+        None
+        
+* Data Params:
+
+        Required:
+
+        email=[string]
+        password=[string]
+
+* Success Response:
+
+        Code: 200 OK
+        Content: {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJKb2huZG9lQGdtYWlsLmNvbSIsImlhdCI6MTU5NjUzNzM1Mn0.RUkSnWdagE-wdW3MgUYZPip6U9k9JTT-5SlB7eFYh2A"
+        }
+
+* Error Response:
+
+        Code: 400 BAD REQUEST
+        Content: { error : "Username/password didn't match" , error :"Please fill in the required information"}
 
         Code: 500 INTERNAL SERVER ERROR
         Content: { error : "SequelizeDatabaseError" }
