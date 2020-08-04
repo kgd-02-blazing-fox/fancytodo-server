@@ -48,7 +48,7 @@ New to do list registration in Fancy To-Do app
     "title": "Mandi",
     "description": "Pakai air",
     "status": "Not Completed",
-    "due_date": "2020-05-27T00:00:00.000Z"
+    "due_date": "2020-08-03T00:00:00.000Z"
     }
     ```
  
