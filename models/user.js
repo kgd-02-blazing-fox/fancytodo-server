@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Email format only'
         },
-        // unique: true
       }
     },
     password: DataTypes.STRING

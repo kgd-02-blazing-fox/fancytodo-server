@@ -10,7 +10,7 @@ router.get('/', todoController.readTodo)
 
 router.post('/', todoController.createTodo)
 
-router.get('/:id', todoController.getSpesificTodo)
+router.get('/:id', authorization, todoController.getSpesificTodo)
 
 router.put('/:id', authorization, todoController.updateSpesificTodo)
 
