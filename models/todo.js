@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Todo.belongsTo(models.User,{
+        foreignKey:'userId',
+        targetKey:'id'
+      })
     }
   };
   Todo.init({
@@ -42,10 +45,13 @@ module.exports = (sequelize, DataTypes) => {
       validate:{
         outDated(value) {
           if (value<Date.now()) {
-            throw new Error("Please do not joke about the date")
+            throw new Error("Please enter the date after today")
           }
         }
       }
+    },
+    userId: {
+      type: DataTypes.INTEGER,
     }
   }, {
     sequelize,

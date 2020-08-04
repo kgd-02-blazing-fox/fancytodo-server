@@ -1,14 +1,14 @@
 "use strict"
 
-const express = require("express")
-const router = express.Router()
-const TodoControllers = require("../controllers/todocontrollers.js")
+const router = require('express').Router()
+const TodoController = require("../controllers/todocontroller.js")
+const Access = require("../middlewares/access.js")
 
-router.post("/",TodoControllers.postTodosHandler)
-router.get("/",TodoControllers.getTodosHandler)
-router.get("/:id",TodoControllers.getSpecificTodosHandler)
-router.put("/:id",TodoControllers.putSpecificTodosHandler)
-router.delete("/:id",TodoControllers.delSpecificTodosHandler)
+router.post("/",TodoController.post)
+router.get("/",TodoController.get)
+router.get("/:id",Access.todoModAuthorize,TodoController.getSpecific)
+router.put("/:id",Access.todoModAuthorize,TodoController.putSpecific)
+router.delete("/:id",Access.todoModAuthorize,TodoController.delSpecific)
 
 
 module.exports = router
