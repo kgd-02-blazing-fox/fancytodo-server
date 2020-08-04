@@ -26,7 +26,7 @@ class UserController {
       // res.status(500).json(err)
       next(err)
     }
-    
+
   }
 
   static async loginUser(req, res, next) {
@@ -39,20 +39,26 @@ class UserController {
       const user = await User.findOne({
         where: { email: payload.email }
       })
-
-      if (user) {
-        const access_token = userToken(user.email)
-        res.status(200).json({
-          access_token
+        .then(user => {
+          if (user) {
+            const valid = comparePassword(payload.password, user.password)
+            if (valid) {
+              const access_token = userToken(user.email)
+              res.status(200).json({
+                access_token
+              })
+            } else {
+              next({
+                name: "Unauthorized",
+                msg: "username/password wrong!"
+              })
+              // res.status(401).json()
+            }
+          }
         })
-      } else {
-        res.status(401).json({
-          name: "Unauthorized",
-          msg: "username/password wrong!"
-        })
-      }
     } catch (err) {
-      res.status(500).json(err)
+      // res.status(500).json(err)
+      next(err)
     }
   }
 

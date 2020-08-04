@@ -17,16 +17,24 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       // allowNull: false
+      // validate: {allowNull: false}
     },
+
     description: DataTypes.STRING,
+
     status: {
       type: DataTypes.STRING,
-      // allowNull: false
+      // validate: {allowNull: false}
     },
+
     Due_date: {
       type: DataTypes.DATE,
-      isAfter: "2020-08-03"
+      validate: {
+        // allowNull: false,
+        isAfter: "2020-08-03"
+      }
     },
+
     userId:{
       type: DataTypes.INTEGER
     }
