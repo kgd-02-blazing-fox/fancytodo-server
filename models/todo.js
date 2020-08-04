@@ -2,13 +2,12 @@
 const {
   Model
 } = require('sequelize');
+
+const axios = require('axios');
+
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate(models) {
       // define association here
     }
@@ -35,10 +34,27 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
 
-    userId:{
+    userId: {
       type: DataTypes.INTEGER
-    }
+    },
+
+    advice: DataTypes.STRING,
   }, {
+    hooks: {
+      beforeCreate(todo) {
+        return axios({
+          method: 'GET',
+          url: 'https://api.adviceslip.com/advice'
+        })
+          .then(({ data }) => {
+            // console.log(data.slip.advice);
+            todo.advice = data.slip.advice
+          })
+          .catch(err => {
+            throw err
+          })
+      }
+    },
     sequelize,
     modelName: 'Todo',
   });
