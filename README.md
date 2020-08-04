@@ -160,3 +160,53 @@
   OR
 
   * **Code:** 500 INTERNAL SERVER ERROR  <br />
+
+**User register**
+----
+
+* **URL**
+
+  /user/register
+
+* **Method:**
+  
+  `POST`
+  
+
+* **Success Response:**
+  
+  * **Code:** 201 <br />
+    **Content:** `{"name":"a","email":"a@gmail.com"}`
+ 
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR  <br />
+
+**User Login**
+----
+
+* **URL**
+
+  /users/login
+
+* **Method:**
+  
+  `POST`
+  
+  * **Data Params**
+
+  `{ email: email@email.com, password: yourSecretPasword}`
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** `{"access_token":"yourSecretAccesToken"}`
+ 
+* **Error Response:**
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** `{ name: "Unauthorized", msg: "username/password wrong!" }`
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR  <br />
