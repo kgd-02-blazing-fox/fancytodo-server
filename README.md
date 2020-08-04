@@ -35,7 +35,8 @@ Providing a todo list services which can be added, manipulated, and deleted late
             "status": "false",
             "Due_date": "2020-10-04T17:00:00.000Z",
             "updatedAt": "2020-08-03T09:53:47.174Z",
-            "createdAt": "2020-08-03T09:53:47.174Z"
+            "createdAt": "2020-08-03T09:53:47.174Z",
+            "userId":8
         }
 
 * Error Response:
@@ -78,7 +79,8 @@ Providing a todo list services which can be added, manipulated, and deleted late
                 "status": false,
                 "Due_date": "2020-11-04T17:00:00.000Z",
                 "createdAt": "2020-08-03T10:07:35.858Z",
-                "updatedAt": "2020-08-03T10:07:35.858Z"
+                "updatedAt": "2020-08-03T10:07:35.858Z",
+                "userId":8            
             },
             {
                 "id": 2,
@@ -87,7 +89,8 @@ Providing a todo list services which can be added, manipulated, and deleted late
                 "status": true,
                 "Due_date": "2020-11-04T17:00:00.000Z",
                 "createdAt": "2020-08-03T10:08:00.162Z",
-                "updatedAt": "2020-08-03T10:08:00.162Z"
+                "updatedAt": "2020-08-03T10:08:00.162Z",
+                "userId":8
             }
         ]
 
@@ -129,7 +132,8 @@ Providing a todo list services which can be added, manipulated, and deleted late
             "status": false,
             "Due_date": "2020-11-04T17:00:00.000Z",
             "createdAt": "2020-08-03T10:07:35.858Z",
-            "updatedAt": "2020-08-03T10:07:35.858Z"
+            "updatedAt": "2020-08-03T10:07:35.858Z",
+            "userId":8
         }
 
 * Error Response:
@@ -178,7 +182,8 @@ Providing a todo list services which can be added, manipulated, and deleted late
             "status": true,
             "Due_date": "2020-11-04T17:00:00.000Z",
             "createdAt": "2020-08-03T10:07:35.858Z",
-            "updatedAt": "2020-08-03T10:57:41.996Z"
+            "updatedAt": "2020-08-03T10:57:41.996Z",
+            "userId":8
         }
 
 * Error Response:
@@ -225,7 +230,8 @@ Providing a todo list services which can be added, manipulated, and deleted late
             "status": true,
             "Due_date": "2020-11-04T17:00:00.000Z",
             "createdAt": "2020-08-03T10:07:35.858Z",
-            "updatedAt": "2020-08-03T10:57:41.996Z"
+            "updatedAt": "2020-08-03T10:57:41.996Z",
+            "userId":8
         }
 
 * Error Response:
