@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Field Description Cannot Be Empty'
+          msg: 'Field Description can\'t Be Empty'
         },
         notNull: {
           msg: 'Required todo description.'
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Field Status Cannot Be Empty'
+          msg: 'Field Status can\'t Be Empty'
         },
         notNull: {
           msg: 'Required todo status.'
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Field Due Date Cannot Be Empty'
+          msg: 'Field Due Date can\'t Be Empty'
         },
         notNull: {
           msg: 'Required todo due date.'
