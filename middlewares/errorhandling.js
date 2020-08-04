@@ -23,10 +23,10 @@ class ErrorHandling {
                     res.status(404).json({"message":"File not found"})
                     break;
                 case "Invalid token":
-                    res.status(400).json({"message":"Access denied"})
+                    res.status(401).json({"message":"Access denied"})
                     break;
                 case "Unauthorized access":
-                    res.status(400).json({"message":"Unauthorized access"})
+                    res.status(401).json({"message":"Unauthorized access"})
                     break;
                 default:
                     res.status(500).json(err)
