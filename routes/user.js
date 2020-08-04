@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const { UserController } = require('../controllers/todoController.js');
+const { UserController } = require('../controllers/userController.js');
 
 //users
-router.post('/', UserController.registerUser)
+router.post('/register', UserController.registerUser)
 
-router.post('/', UserController.loginUser)
+router.post('/login', UserController.loginUser)
 
 module.exports = router;

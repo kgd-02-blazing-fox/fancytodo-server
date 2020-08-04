@@ -1,4 +1,4 @@
-const { Todo, User } = require('../models/index.js')
+const { Todo } = require('../models/index.js')
 
 class todoController {
   static readTodo(req, res) {
@@ -13,10 +13,11 @@ class todoController {
 
   static createTodo(req, res) {
     let input = {
-      // title: req.body.title,
+      title: req.body.title,
       description: req.body.description,
       status: req.body.status,
-      Due_date: req.body.Due_date
+      Due_date: req.body.Due_date,
+      userId : req.userId
     }
     Todo.create(input)
       .then(data => {
@@ -109,30 +110,6 @@ class todoController {
 
 }
 
-class UserController{
-  static registerUser(req,res){
-    let input = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-    }
 
-    User.create(input)
-    .then(data=>{
-      res.status(201).json({
-        name: data.name,
-        email: data.email
-      })
-    })
-    .catch(err=>{
-      res.status(500).json(err)
-    })
-  }
 
-  static loginUser(req,res){
-
-  }
-
-}
-
-module.exports = { todoController, UserController }
+module.exports = { todoController }

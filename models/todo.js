@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     Due_date: {
       type: DataTypes.DATE,
       isAfter: "2020-08-03"
+    },
+    userId:{
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
