@@ -100,7 +100,9 @@ class todoController {
             name: "Data Not Found"
           })
         } else {
-          res.status(200).json(data)
+          res.status(200).json({
+            msg: "delete complete"
+          })
         }
       })
       .catch(err => {

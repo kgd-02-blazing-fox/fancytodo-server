@@ -29,7 +29,7 @@ class UserController {
         email: req.body.email,
         password: req.body.password
       }
-      console.log(payload);
+      // console.log(payload);
       const user = await User.findOne({
         where: { email: payload.email }
       })
