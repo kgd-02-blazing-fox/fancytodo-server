@@ -22,7 +22,8 @@ class TodoController {
     static async get (req,res,next) {
         try {
             const list = await Todo.findAll({where:{userId:req.access_id}})
-            res.status(200).json(list)
+            if (!list.length) res.status(204).json(list)
+            else res.status(200).json(list)
         } catch(err) {
             
             next(err)
