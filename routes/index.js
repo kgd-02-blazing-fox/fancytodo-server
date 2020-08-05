@@ -11,6 +11,8 @@ router.get('/', (req, res) => {
 })
 router.post('/register', UserController.postRegister)
 router.post('/login', UserController.postLogin)
+router.post('/login-google', UserController.postGoogleLogin)
+
 router.use('/resto', restoRoutes)
 router.use('/todos', todoRoutes)
 

@@ -28,6 +28,12 @@ const errorHandler = (err, req, res, next) => {
       })
       
       break;
+    case 'Please login via website':
+      res.status(400).json({
+        error: err.name
+      })
+
+      break;
     case 'You are unauthenticated to make this request':
       res.status(401).json({
         error: err.name
