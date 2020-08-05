@@ -5,11 +5,11 @@
 
 * **URL**
 
-  /todos/
+  `/todos/`
 
 * **Method:**
   
-  GET
+  `GET`
 
 
 * **Success Response:**
@@ -27,7 +27,7 @@
 
 * **URL**
 
-  /todos/
+  `/todos/`
 
 * **Method:**
   
@@ -57,11 +57,11 @@
   
 * **URL**
 
-  /todos/:id
+  `/todos/:id`
 
 * **Method:**
   
-  GET
+  `GET`
   
 *  **URL Params**
     /:id
@@ -88,7 +88,7 @@
 
 * **URL**
 
-  /todos/:id
+  `/todos/:id`
 
 * **Method:**
   
@@ -96,7 +96,7 @@
   
 *  **URL Params**
 
-    /:id
+    `/:id`
 
    **Required:**
  
@@ -133,7 +133,7 @@
 
 * **URL**
 
-  /todos/:id
+  `/todos/:id`
 
 * **Method:**
   
@@ -166,7 +166,7 @@
 
 * **URL**
 
-  /user/register
+  `/user/register`
 
 * **Method:**
   
@@ -187,7 +187,7 @@
 
 * **URL**
 
-  /users/login
+  `/users/login`
 
 * **Method:**
   

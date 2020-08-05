@@ -36,14 +36,14 @@ class UserController {
         password: req.body.password
       }
       // console.log(payload);
-      const user = await User.findOne({
+      await User.findOne({
         where: { email: payload.email }
       })
         .then(user => {
           if (user) {
             const valid = comparePassword(payload.password, user.password)
             if (valid) {
-              const access_token = userToken(user.email)
+              let access_token = userToken(user.email)
               res.status(200).json({
                 access_token
               })
@@ -52,9 +52,11 @@ class UserController {
                 name: "Unauthorized",
                 msg: "username/password wrong!"
               })
-              // res.status(401).json()
             }
           }
+        })
+        .catch(err=>{
+          next(err)
         })
     } catch (err) {
       // res.status(500).json(err)
