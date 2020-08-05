@@ -13,7 +13,7 @@ class ToDoController {
         try {
 
             let createdToDo = await ToDo.create({
-                title: toDotitle,
+                title,
                 description,
                 status,
                 dueDate,
