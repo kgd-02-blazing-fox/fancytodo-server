@@ -1,6 +1,12 @@
 const errorHandler = (err, req, res, next) => {
 
   switch (err.name) {
+    case 'You dont have quentity id':
+      res.status(400).json({
+        error: err.name
+      })
+
+      break;
     case 'SequelizeUniqueConstraintError':
       res.status(400).json({
         error: 'Your Email already exist'

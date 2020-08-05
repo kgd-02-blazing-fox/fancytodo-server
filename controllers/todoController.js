@@ -3,9 +3,9 @@ const { Todo, User } = require('../models/index')
 class TodoController {
 
   static async createTodo(req, res, next) {
-    const { title, description, status, due_date } = req.body
+    const { title, description, due_date } = req.body
     try {
-      const todo = await Todo.create({ title, description, status, due_date, UserId: req.userLogin.id })
+      const todo = await Todo.create({ title, description, due_date, UserId: req.userLogin.id })
       res.status(201).json(todo)
     } catch (err) {
       next(err)
@@ -77,6 +77,28 @@ class TodoController {
       next(err)
     }
   }
+  static async editStatus(req, res, next) {
+    const { status } = req.body
+    const id = req.params.id
+    try {
+      const findTodo = await Todo.findOne({ where: { id } })
+      if (!findTodo) {
+        throw ({ name: "Todo not found" })
+      } else {
+        const updateTodo = await Todo.update({ status }, {
+          where: {
+            id: req.params.id
+          }
+        })
+        res.status(200).json({
+          msg: "Success update status todo"
+        })
+      }
+    } catch (err) {
+      next(err)
+    }
+  }
 }
+
 
 module.exports = TodoController

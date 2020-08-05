@@ -46,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        isIn: {
+          args: [['none', 'done', 'expire']],
+          msg: 'Must be in none, done, & expire'
+        },
         notEmpty: {
           args: true,
           msg: 'Field status can\'t be empty'
@@ -74,6 +78,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (todo) => {
+        todo.status = 'none'
+      }
+    },
     sequelize,
     modelName: 'Todo',
   });
