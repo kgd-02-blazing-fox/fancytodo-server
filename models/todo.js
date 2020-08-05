@@ -34,12 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     }
     },
     status: {type:DataTypes.BOOLEAN,
-    validate:{
-      notEmpty:{
-        args:true,
-        msg:"Status cannot be empty"
-      }
-    }
     },
     due_date: {type:DataTypes.DATE,
       validate:{
@@ -57,5 +51,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Todo',
   });
+  Todo.beforeCreate((instance,option)=>{
+    instance.status = false
+  })
   return Todo;
 };

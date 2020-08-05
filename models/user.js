@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require("bcryptjs")
 const {
   Model
 } = require('sequelize');
@@ -55,7 +56,9 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
   });
   User.beforeCreate((instance,option) => {
-    instance.lastname === "" ? instance.fullname = instance.firstname : instance.fullname = `${instance.firstname} ${instance.lastname}` 
+    const salt = bcrypt.genSaltSync(10)
+    instance.lastname === "" ? instance.fullname = instance.firstname : instance.fullname = `${instance.firstname} ${instance.lastname}`;
+    instance.password = bcrypt.hashSync(instance.password,salt)
   })
   return User;
 };

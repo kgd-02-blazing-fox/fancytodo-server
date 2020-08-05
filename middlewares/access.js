@@ -15,8 +15,6 @@ class Access {
             }
         } catch (err) {
             next(err)
-            // if (err.message === "Invalid token") res.status(400).json({"err":err.message})
-            // else res.status(500).json(err)
         }
     }
     static async todoModAuthorize(req,res,next) {
@@ -27,8 +25,6 @@ class Access {
             else next()
         } catch (err) {
             next(err)
-            // if (err.message === "Unauthorized access") res.status(400).json({"err":err.message})
-            // else res.status(500).json(err)
         }
     }
 }

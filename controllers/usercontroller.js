@@ -1,9 +1,8 @@
 "use strict"
 
 const { User } = require("../models") 
-const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const salt = bcrypt.genSaltSync(10)
+const bcrypt = require("bcryptjs")
 
 class UserController {
     static async register(req,res,next) {
@@ -11,15 +10,11 @@ class UserController {
         try {
             if (password.length<6 || password.length>20) throw new Error("Passlength")
             else {
-                const user = await User.create({firstname,lastname,email,password:bcrypt.hashSync(password,salt)})
+                const user = await User.create({firstname,lastname,email,password})
                 res.status(201).json(user.dataValues)
             }
         } catch(err) {
             next(err)
-            // if (err.message === "passlength") res.status(400).json({"err":"Password length has to be around 6 and 20"})
-            // else if (err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError")
-            // res.status(400).json(err)
-            // else res.status(500).json(err)
         }
     }
     static async login(req,res,next) {
@@ -41,9 +36,6 @@ class UserController {
             }}
         } catch(err) {
             next(err)
-            // if(err.message === "Login not valid") res.status(400).json({"err":"Username/password didn't match"})
-            // else if(err.message === "Login email/pass empty") res.status(400).json({"err":"Please fill in the required information"})
-            // else res.status(500).json(err)
         }
     }
 }

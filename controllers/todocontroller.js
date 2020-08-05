@@ -8,7 +8,6 @@ class TodoController {
         let form = {
             title: req.body.title,
             description: req.body.description,
-            status: req.body.status,
             due_date: new Date(req.body.due_date),
             userId:req.access_id
         }
@@ -22,10 +21,8 @@ class TodoController {
     static async get (req,res,next) {
         try {
             const list = await Todo.findAll({where:{userId:req.access_id}})
-            if (!list.length) res.status(204).json(list)
-            else res.status(200).json(list)
+            res.status(200).json(list)
         } catch(err) {
-            
             next(err)
         }
     }
