@@ -29,7 +29,7 @@ class UserController {
       } else {
         const token = signToken({ email })
         res.status(200).json({
-          acces_token: token
+          access_token: token
         })
       }
     } catch (err) {
@@ -38,15 +38,17 @@ class UserController {
   }
   static async postGoogleLogin(req, res, next) {
     const id_token = req.headers.id_token
-
+    console.log({
+      id_token
+    })
     try {
       const googlePayload = await verify(id_token)
-      const googleEmail = googlePayload.email
+      const email = googlePayload.email
+      console.log({email})
 
-      const user = await User.findOne({
-        where: {
-          email: googleEmail
-        }
+      const user = await User.findOne({ where: { email } })
+      console.log({
+        user
       })
 
       if (user) {
@@ -54,17 +56,24 @@ class UserController {
           throw { name: 'Please login via website' }
         } else {
           const token = signToken({ email: user.email})
-          res.status(200).json(token)
+          res.status(200).json({
+            access_token: token
+          })
         }
       } else {
-        let user = await User.create({
-          email: googleEmail,
+        console.log(`${email} belum terdaftar!`)
+        let newGoogleUser = await User.create({
+          email,
           password: process.env.GOOGLE_DEFAULT_PASSWORD
         })
-        const token = signToken(payload)
-        res.status(201).json(token)
+        const token = signToken({ email })
+        console.log(token)
+        res.status(201).json({
+          access_token: token
+        })
       }
     } catch (err) {
+      console.log(err.errors)
       next(err)
     }
   }

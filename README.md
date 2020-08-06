@@ -409,6 +409,7 @@
       ```
 
 ----
+
 **Register User**
 ----
   Returns json data.
@@ -480,13 +481,14 @@
       ```
 
 ----
+
 **Login User**
 ----
   Returns json data.
 
 * **URL**
 
-  /login/
+  /login
 
 * **Method:**
 
@@ -508,7 +510,7 @@
   * **Code:** 200 OK <br />
     **Content:** 
     ```json
-    { "acces_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImljaGxhc3VsMDk5OUBnbWFpbC5jb20iLCJpYXQiOjE1OTY1MTgxNDV9.XMgRIuuJMX8byn4zhJCS7yXEH-rb96UhErjlQ45ijgQ" }
+    { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImljaGxhc3VsMDk5OUBnbWFpbC5jb20iLCJpYXQiOjE1OTY1MTgxNDV9.XMgRIuuJMX8byn4zhJCS7yXEH-rb96UhErjlQ45ijgQ" }
     ```
 
 * **Error Response:**
@@ -747,13 +749,14 @@
       ```
 
 ----
+
 **Login With Google**
 ----
   Returns json data.
 
 * **URL**
 
-  /login-google/
+  /login-google
 
 * **Method:**
 
@@ -771,17 +774,14 @@
 
 * **Data Params**
 
-  | key | value | required |
-  | :---: | :---: | :---: |
-  | email | STRING | true |
-  | password | STRING | true |
+   none
 
 * **Success Response:**
 
   * **Code:** 200 OK <br />
     **Content:** 
     ```json
-    { "acces_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImljaGxhc3VsMDk5OUBnbWFpbC5jb20iLCJpYXQiOjE1OTY1MTgxNDV9.XMgRIuuJMX8byn4zhJCS7yXEH-rb96UhErjlQ45ijgQ" }
+    { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImljaGxhc3VsMDk5OUBnbWFpbC5jb20iLCJpYXQiOjE1OTY1MTgxNDV9.XMgRIuuJMX8byn4zhJCS7yXEH-rb96UhErjlQ45ijgQ" }
     ```
 
 * **Error Response:**
