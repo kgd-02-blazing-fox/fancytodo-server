@@ -1,7 +1,9 @@
 const { User } = require('../models/index.js')
 const { userToken } = require('../helper/jsontoken.js')
 const { comparePassword } = require('../helper/hashPasword.js')
-
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID);
+const jwt = require('jsonwebtoken')
 
 class UserController {
   static registerUser(req, res, next) {
@@ -55,7 +57,7 @@ class UserController {
             }
           }
         })
-        .catch(err=>{
+        .catch(err => {
           next(err)
         })
     } catch (err) {
@@ -64,6 +66,43 @@ class UserController {
     }
   }
 
+  static async googleLogin(req, res, next) {
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: req.headers.google_token,
+        audience: process.env.CLIENT_ID,  
+      });
+      const payload = ticket.getPayload();
+      User.findOne({
+        where:{
+          email: payload.email
+        }
+      })
+      .then(user=>{
+        if(user){
+          return user
+        } else {
+          return User.create({
+            name: payload.name,
+            email: payload.email,
+            password: 1234
+          })
+        }
+      })
+      .then(user=>{
+        const access_token = jwt.sign({
+          email: user.email
+        }, process.env.JWT_SECRET)
+        res.status(200).json({access_token})
+      })
+      .catch(err=>{
+        next(err)
+      })
+    } catch (err) {
+      next(err)
+    }
+    
+  }
 }
 
 module.exports = { UserController }
