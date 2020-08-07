@@ -1,70 +1,122 @@
-const { User } = require('../models/index.js')
-const { comparePassword } = require('../helpers/bcrypt.js')
-const { sign } = require('../helpers/jwt.js')
+const { User } = require('../models/index.js');
+const { comparePassword } = require('../helpers/bcrypt.js');
+const { signToken } = require('../helpers/jwt.js');
+const { verify } = require('../helpers/googleOAuth.js');
 
 class UserController {
-    static register(req, res){
-        const payload = {
-            email: req.body.email,
-            password: req.body.password
-        }
+    static async login(req, res, next) {
+        const email = req.body.email;
+        const password = req.body.password;
 
-        User
-            .create(payload)
-            .then(data => {
-                res.status(201).json(
-                    {
-                        email: data.email,
-                        password: data.password
-                    }
-                )
-            })
-            .catch(err => {
-                if ( err.name === "SequelizeValidationError"){
-                    err = err.errors.map(error => {
-                        return error.message
-                    })
-                    res.status(400).json(err)
-                }
-                else {
-                    res.status(500).json({ Error: "Internal server error" })
+        try {
+            const user = await User.findOne({
+                where: {
+                    email
                 }
             })
+
+            const dataPassword = user ? user.password : '';
+
+            if(!user) {
+                next({
+                    name: '400 Bad Request',
+                    errors: [{message: 'Invalid username or password'}]
+                });
+            } else if(!comparePassword(password, dataPassword)) {
+                next({
+                    name: '400 Bad Request',
+                    errors: [{message: 'Invalid username or password'}]
+                });
+            } else {
+                const payload = {
+                    email: user.email
+                };
+
+                const token = signToken(payload);
+
+                res.status(200).json({name: user.name, token});
+            }
+
+        } catch(err) {
+            next(err);
+        }
     }
 
-    static login(req,res){
-        const inputEmail = req.body.email
-        const inputPassword = req.body.password
+    static async googleLogin(req, res, next) {
+        const googleToken = req.headers.google_token;
+        
+        try {
+            const googlePayload = await verify(googleToken);
+            const email = googlePayload.email;
+            const name = googlePayload.name;
 
-        User.findOne({
-            where: {
-                email: inputEmail
-            }
-        })
-        .then(data => {
-            const dbPassword = data.password
-
-            if(!data){
-                throw 'invalid username / password'
-            }
-            else if(!comparePassword(inputPassword, dbPassword)){
-                throw 'invalid username / password'
-            }
-            else {
-                const payload = {
-                    email: data.email
+            const user = await User.findOne({
+                where: {
+                    email
                 }
-                const token = sign(payload)
-                res.status(200).json({
-                    token
-                })
+            })
+
+            if(user) {
+                if(!comparePassword(process.env.GOOGLE_DEFAULT_PASSWORD, user.password)) {
+                    next({
+                        name: '400 Bad Request',
+                        errors: [{message: 'Please login through website'}]
+                    });
+                } else {
+                    const payload = {
+                        email: user.email
+                    };
+    
+                    const token = signToken(payload);
+    
+                    res.status(200).json({name: user.name, token});
+                }
+            } else {
+                const newUser = {
+                    email,
+                    password: process.env.GOOGLE_DEFAULT_PASSWORD,
+                    name
+                }
+                const user = await User.create(newUser);
+
+                const payload = {
+                    email: user.email
+                };
+
+                const token = signToken(payload);
+
+                res.status(200).json({name: user.name, token});
             }
-        })
-        .catch(err => {
-            res.status(500).json({ Error: "Internal server error" })
-        })
+            
+        } catch(err) {
+            next(err);
+        }
+    }
+
+    static async register(req, res, next) {
+        const newUser = {
+            email: req.body.email,
+            password: req.body.password,
+            name: req.body.name
+        }
+
+        try {
+            const user = await User.create(newUser);
+            
+            const createdUser = {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt
+            }
+
+            res.status(201).json({user: createdUser});
+        } catch(err) {
+            next(err);
+        }
 
     }
 }
 
-module.exports = UserController
+module.exports = UserController;

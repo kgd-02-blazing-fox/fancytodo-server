@@ -1,16 +1,15 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
-function sign(){
-    const token = jwt.sign(payload, 'rahasia')
-    return token
+const signToken = (payload) => {
+    const token = jwt.sign(payload, process.env.JWT_KEY);
+
+    return token;
 }
 
-function verify(){
-    if(token){
-        return jwt.verify(token, 'rahasia')
-    }
+const verifyToken = (token) => {
+    const payload = jwt.verify(token, process.env.JWT_KEY);
+
+    return payload;
 }
 
-
-
-module.exports = { sign, verify }
+module.exports = { signToken, verifyToken };
