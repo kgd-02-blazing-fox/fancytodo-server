@@ -73,6 +73,11 @@ module.exports = (sequelize, DataTypes) => {
         isDate: {
           args: true,
           msg: 'Field due date invalid format'
+        },
+        checkDueDate() {
+          if (new Date(this.due_date).getTime < new Date().getTime) {
+            throw new Error('Error date cannot be past time')
+          }
         }
       }
     },
