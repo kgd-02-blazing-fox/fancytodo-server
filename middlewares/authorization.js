@@ -8,7 +8,7 @@ let authorization = ( req, res, next )=>{
         next()
       } else {
         res.status(401).json({
-          msg: "Unathorized Action"
+          msg: "Unathorized"
         })
       }
     } else {
@@ -18,7 +18,7 @@ let authorization = ( req, res, next )=>{
     }
   })
   .catch(err=>{
-    res.status(500).json(err)
+    next(err)
   })
 }
 

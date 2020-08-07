@@ -2,11 +2,17 @@ const { Todo } = require('../models/index.js')
 
 class todoController {
   static readTodo(req, res, next) {
-    Todo.findAll()
+    let id = req.userId
+    // console.log(id);
+    Todo.findAll({
+      where: {userId:id}
+    })
       .then(data => {
+        // console.log(data);
         res.status(200).json(data)
       })
       .catch(err => {
+        console.log(err, 'DI READ TODO CONTROLLER');
         next(err)
       })
   }
@@ -43,7 +49,6 @@ class todoController {
 
   static getSpesificTodo(req, res, next) {
     let id = req.params.id
-    try {
       Todo.findOne({
         where: { id }
       })
@@ -55,16 +60,13 @@ class todoController {
             // res.status(404).json()
           } else {
             res.status(200).json(data)
+            // console.log(data);
           }
         })
         .catch(err => {
           next(err)
           // res.status(500).json(err)
         })
-    } catch (err) {
-      next(err)
-    }
-
   }
 
   static updateSpesificTodo(req, res, next) {
@@ -75,7 +77,8 @@ class todoController {
       status: req.body.status,
       Due_date: req.body.Due_date
     }
-    try {
+    // console.log(id);
+    // console.log(input);
       Todo.update(input, {
         where: { id },
         returning: true
@@ -102,9 +105,6 @@ class todoController {
             // res.status(500).json(err)
           }
         })
-    } catch (err) {
-      next(err)
-    }
     
   }
 
@@ -131,7 +131,5 @@ class todoController {
   }
 
 }
-
-
 
 module.exports = { todoController }

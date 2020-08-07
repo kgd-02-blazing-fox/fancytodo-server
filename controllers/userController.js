@@ -3,7 +3,7 @@ const { userToken } = require('../helper/jsontoken.js')
 const { comparePassword } = require('../helper/hashPasword.js')
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
-const jwt = require('jsonwebtoken')
+
 
 class UserController {
   static registerUser(req, res, next) {
@@ -28,7 +28,6 @@ class UserController {
       // res.status(500).json(err)
       next(err)
     }
-
   }
 
   static async loginUser(req, res, next) {
@@ -70,38 +69,34 @@ class UserController {
     try {
       const ticket = await client.verifyIdToken({
         idToken: req.headers.google_token,
-        audience: process.env.CLIENT_ID,  
+        audience: process.env.CLIENT_ID,
       });
       const payload = ticket.getPayload();
-      User.findOne({
-        where:{
+      const foundUser = await User.findOne({
+        where: {
           email: payload.email
         }
       })
-      .then(user=>{
-        if(user){
-          return user
-        } else {
-          return User.create({
-            name: payload.name,
-            email: payload.email,
-            password: 1234
-          })
-        }
-      })
-      .then(user=>{
-        const access_token = jwt.sign({
-          email: user.email
-        }, process.env.JWT_SECRET)
-        res.status(200).json({access_token})
-      })
-      .catch(err=>{
-        next(err)
-      })
+      let createdUser
+      if (!foundUser) {
+        createdUser = await User.create({
+          name: payload.name,
+          email: payload.email,
+          password: "1234"
+        })
+        console.log('MASUK IF USER');
+      }
+      // console.log(createdUser, 'SETELAH DIBUAT');
+      // console.log(foundUser.toJSON().email, 'INIIIIIIIIIIIIIII');
+      // console.log(createdUser);
+      const access_token = userToken(foundUser ? foundUser.toJSON().email : createdUser.email)
+      res.status(200).json({ access_token })
+
     } catch (err) {
+      console.log(err);
       next(err)
     }
-    
+
   }
 }
 

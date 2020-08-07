@@ -13,14 +13,14 @@ let authentication = (req, res, next) => {
         req.userId = user.id
         next()
       } else {
-        res.status(401).json({
+        next({
           name:"bad request",
           msg: "false credentials"
         })
       }
     })
     .catch(err => {
-      res.status(500).json(err)
+      next(err)
     })
 }
 
