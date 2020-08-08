@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isIn: {
           args: [['none', 'done', 'expire']],
-          msg: 'Must be in none, done, & expire'
+          msg: 'Status must be in none, done, & expire'
         },
         notEmpty: {
           args: true,

@@ -13,7 +13,7 @@ class RestaurantController {
             'entity_id': req.query.entity_id,
             'entity_type': 'city',
             'sort': 'rating',
-            'count': 10
+            'count': 15
           },
           headers: {
             'user-key': process.env.ZOMATO_KEY
