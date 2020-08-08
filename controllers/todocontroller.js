@@ -26,7 +26,7 @@ class TodoController {
                 method: 'GET',
                 url: 'https://quote-garden.herokuapp.com/api/v2/quotes/random',
               });
-            const list = await Todo.findAll({where:{userId:req.access_id}})
+            const list = await Todo.findAll({where:{userId:req.access_id},order:[["createdAt","DESC"]]})
             res.status(200).json({todos:list,quote:{quoteText:quote.data.quote.quoteText,quoteAuthor:quote.data.quote.quoteAuthor}})
         } catch(err) {
             next(err)
@@ -43,11 +43,8 @@ class TodoController {
     }
     static async putSpecific (req,res,next) {
         let form = {
-            title: req.body.title,
-            description: req.body.description,
             status: req.body.status,
         }
-        if (req.body.due_date) form.due_date = new Date(req.body.due_date)
         try {
             const result = await Todo.update(form,{where:{id:req.params.id},returning:true})
             if (!result[0]) throw new Error("File not Found")
@@ -60,8 +57,13 @@ class TodoController {
         try {
             const returning = await Todo.findOne({where:{id:req.params.id}})
             if (!returning) throw new Error("File not Found")
-            const destroyed = await Todo.destroy({where:{id:req.params.id}})
-            res.status(200).json(returning)
+            if (returning.status){
+                const destroyed = await Todo.destroy({where:{id:req.params.id}})
+                res.status(200).json(returning)
+            }
+            else {
+                throw new Error("Invalid todo status")
+            }
         } catch(err) {
             next(err)
         }

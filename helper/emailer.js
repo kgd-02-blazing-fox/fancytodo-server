@@ -1,6 +1,5 @@
 "use strict"
 
-const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer")
 const {User,Todo} = require("../models")
 
@@ -50,13 +49,14 @@ function GemailerReg(fullname,email,password) {
             to: `${fullname} <${email}>`,
             subject: 'Welcome to the todo App!',
             html:`<h2>Welcome to the todo App!</h2>
-            <p>You have registered in our service recents ago, Here are your credentials listed in us:</p>
+            <p>You have registered in our service via Google Sign-in recents ago, Here are your credentials listed in us:</p>
             <ul>
                 <li>Name : ${fullname}</li>
                 <li>Email      : ${email}</li>
                 <li>Password   : ${password}</li>
             </ul>
 
+            <p>You can change your password later, or you can keep logging in with Google!</p>
             <p>Thank you for trusting us and enjoy our app!</p>
             <p>regards,</p>
             <br>
