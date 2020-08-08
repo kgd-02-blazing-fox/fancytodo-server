@@ -44,9 +44,11 @@ class UserController {
           if (user) {
             const valid = comparePassword(payload.password, user.password)
             if (valid) {
+              let name = user.name
               let access_token = userToken(user.email)
               res.status(200).json({
-                access_token
+                access_token,
+                name
               })
             } else {
               next({
@@ -67,6 +69,7 @@ class UserController {
 
   static async googleLogin(req, res, next) {
     try {
+      let name
       const ticket = await client.verifyIdToken({
         idToken: req.headers.google_token,
         audience: process.env.CLIENT_ID,
@@ -84,13 +87,12 @@ class UserController {
           email: payload.email,
           password: "1234"
         })
-        console.log('MASUK IF USER');
+        name = payload.name
       }
-      // console.log(createdUser, 'SETELAH DIBUAT');
-      // console.log(foundUser.toJSON().email, 'INIIIIIIIIIIIIIII');
-      // console.log(createdUser);
+      name = payload.name
+      // console.log(name);
       const access_token = userToken(foundUser ? foundUser.toJSON().email : createdUser.email)
-      res.status(200).json({ access_token })
+      res.status(200).json({ access_token, name })
 
     } catch (err) {
       console.log(err);

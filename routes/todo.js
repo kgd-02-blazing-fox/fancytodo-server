@@ -13,9 +13,6 @@ router.post('/', todoController.createTodo)
 router.get('/:id', authorization, todoController.getSpesificTodo)
 
 router.put('/:id', authorization, todoController.updateSpesificTodo)
-// router.put('/:id', authorization, function test(req,res){
-//   console.log(req.body, 'params nya sampe');
-// })
 
 router.delete('/:id', authorization, todoController.deleteTodo)
 
