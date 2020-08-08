@@ -1,4 +1,6 @@
-require('dotenv').config()
+if (process.env == 'development') {
+  require('dotenv').config()
+}
 const express = require('express')
 const routes = require('./routes/')
 const port = process.env.PORT
