@@ -1,5 +1,9 @@
 ## **API Documentation : Fancy Todo Server**
 
+**Link Deploy :**
+
+* **[FancyTodo_Server](https://fancytodoichlas.herokuapp.com/)**
+
 **Create Todo**
 ----
   Returns json data.
