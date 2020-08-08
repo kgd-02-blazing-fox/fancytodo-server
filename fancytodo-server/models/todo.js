@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Todo.belongsTo(models.User)
     }
   };
   Todo.init({
@@ -19,13 +19,15 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     due_date: {
       type :DataTypes.DATE,
+      isDate: true,
       validate:{
         isAfter: {
-          args : new Date(),
+          args : `${new Date()}`,
           msg: "Cannot assign due date prior to current time"
         }
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Todo',
