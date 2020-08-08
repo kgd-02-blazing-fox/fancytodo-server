@@ -1,7 +1,8 @@
 "use strict"
 
 const { Todo } = require("../models/index.js")
-const jwt = require("jsonwebtoken")
+const axios = require("axios")
+const {emailerTodoAdd} = require("../helper/emailer.js")
 
 class TodoController {
     static async post (req,res,next) {
@@ -13,6 +14,7 @@ class TodoController {
         }
         try {
             const result = await Todo.create(form)
+            emailerTodoAdd(req.access_id,form)
             res.status(201).json(result.dataValues)
         } catch (err) {
             next(err)
@@ -20,14 +22,17 @@ class TodoController {
     }
     static async get (req,res,next) {
         try {
+            const quote = await axios({
+                method: 'GET',
+                url: 'https://quote-garden.herokuapp.com/api/v2/quotes/random',
+              });
             const list = await Todo.findAll({where:{userId:req.access_id}})
-            res.status(200).json(list)
+            res.status(200).json({todos:list,quote:{quoteText:quote.data.quote.quoteText,quoteAuthor:quote.data.quote.quoteAuthor}})
         } catch(err) {
             next(err)
         }
     }
     static async getSpecific (req,res,next) {
-        console.log("passes getSpecific")
         try {
             const result = await Todo.findOne({where:{id:req.params.id}})
             if (!result) throw new Error("File not Found")

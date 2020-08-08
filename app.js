@@ -5,7 +5,6 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 3000
 const index = require("./router")
-const jwt = require("jsonwebtoken")
 const ErrorHandling = require("./middlewares/errorhandling.js")
 const cors = require("cors")
 
