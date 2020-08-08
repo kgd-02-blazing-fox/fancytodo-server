@@ -313,10 +313,37 @@ Providing a todo list services which can be added, manipulated, and deleted late
 
         email=[string]
         password=[string]
+        
+        --Via Google login--
+        
+        None
 
 * Success Response:
 
         Code: 200 OK
+        Content: {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJKb2huZG9lQGdtYWlsLmNvbSIsImlhdCI6MTU5NjUzNzM1Mn0.RUkSnWdagE-wdW3MgUYZPip6U9k9JTT-5SlB7eFYh2A"
+        }
+        
+        
+        --Via Google login (UNREGISTERED user from database)--
+        
+        Code: 201 CREATED
+        Content: {user:{
+            "id": 8,
+            "firstname": "John Doe",
+            "lastname": "",
+            "email": "Johndoe2@gmail.com",
+            "password": "$2a$10$GWM8zFoEAWCoZfOY4JWlouUYzYcSMByZokEgFqyPrFwGoKV/saBo.",
+            "updatedAt": "2020-08-04T10:32:56.249Z",
+            "createdAt": "2020-08-04T10:32:56.249Z",
+            "fullname": "John Doe"
+        },{
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJKb2huZG9lQGdtYWlsLmNvbSIsImlhdCI6MTU5NjUzNzM1Mn0.RUkSnWdagE-wdW3MgUYZPip6U9k9JTT-5SlB7eFYh2A"
+        }}
+        
+        
+        --Via Google login (REGISTERED user from database)--
         Content: {
             "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJKb2huZG9lQGdtYWlsLmNvbSIsImlhdCI6MTU5NjUzNzM1Mn0.RUkSnWdagE-wdW3MgUYZPip6U9k9JTT-5SlB7eFYh2A"
         }
