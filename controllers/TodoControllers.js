@@ -54,7 +54,7 @@ class TodoController {
     }
   }
 
-  static async putSpecificTodosHandler(req, res) {
+  static async putSpecificTodosHandler(req, res, next) {
     let payload = {
       title: req.body.title,
       description: req.body.description,
@@ -63,31 +63,45 @@ class TodoController {
     }
     console.log(payload)
     try {
-      const data = await Todo.update(payload, {
+      const dataSpesific = await Todo.findOne({
         where: {
           id: req.params.id
-        },
-        returning: true
+        }
       })
-      if (!data[0]) {
-        throw new Error("NoData")
-      }
-      else {
-        res.status(200).json(data[1][0])
+      if (dataSpesific) {
+        const data = await Todo.update(payload, {
+          where: {
+            id: req.params.id,
+            UserId: req.currentUserId
+          },
+          returning: true
+        })
+        if (!data[0]) {
+          throw new Error("NoData")
+        }
+        else {
+          res.status(200).json(data[1][0])
+        }
+
       }
     } catch (err) {
       console.log(err)
       if (err.name === "SequelizeValidationError") {
-        res.status(400).json(err)
+        // res.status(400).json(err)
+        next(err)
       } else if (err.message === "NoData") {
-        res.status(404).json({ 'error': "No Data" })
+        // res.status(404).json({ 'error': "No Data" })
+        next({
+          name: 'NotFound',
+          msg: 'Data Not Found'
+        })
       } else {
-        res.status(500).json(err)
+        next(err)
       }
     }
   }
 
-  static async delSpecificTodosHandler(req, res) {
+  static async delSpecificTodosHandler(req, res, next) {
     try {
       const findBefore = await Todo.findOne({
         where: {
@@ -102,15 +116,37 @@ class TodoController {
             id: req.params.id
           }
         })
-        res.status(200).json(findBefore)
+        res.status(201).json(findBefore)
       }
     } catch (err) {
       if (err.message === "NoData") {
-        res.status(404).json({ 'error': "No Data" })
+        // res.status(404).json({ 'error': "No Data" })
+        next({
+          name: 'NotFound',
+          msg: 'Data Not Found'
+        })
       } else {
-        res.status(500).json(err)
+        // res.status(500).json(err)
+        next(err)
       }
     }
+  }
+
+  static getShowCompleteHanler(req, res, next) {
+    console.log(req.currentUserId)
+    Todo.findAll({ where: {
+      UserId: req.currentUserId,
+      status: 'done' } })
+      .then((result) => {
+
+        res.status(200).json(result)
+      })
+      .catch((err) => {
+        next({
+          name: 'NotFound',
+          errors: [{ msg: 'Data Not Found' }]
+        })
+      })
   }
 
 }
