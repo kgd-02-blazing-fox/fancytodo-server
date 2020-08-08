@@ -1,4 +1,6 @@
 const { ToDo } = require('../models/index.js')
+const axios = require('axios')
+require('dotenv').config()
 
 class ToDoController {
 
@@ -11,7 +13,6 @@ class ToDoController {
         let UserId = req.currentUser.id;
 
         try {
-
             let createdToDo = await ToDo.create({
                 title,
                 description,
@@ -19,7 +20,6 @@ class ToDoController {
                 dueDate,
                 UserId
             })
-            
             res.status(201).json(
                 {
                     title: createdToDo.title,
@@ -57,6 +57,24 @@ class ToDoController {
             })
             .catch(err => {
                 next(err)
+            })
+    }
+
+
+    //GET TODO BY USERID
+    static readToDoByUserId(req, res, next) {
+        let currentUserId = req.currentUser.id;
+        ToDo.findAll({
+            where: {
+                UserId: currentUserId
+            }
+        })
+            .then(result => {
+                res.status(200).json(result)
+            })
+            .catch(err => {
+                res.send(err)
+                next(err);
             })
     }
 
