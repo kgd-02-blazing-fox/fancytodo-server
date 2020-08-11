@@ -24,6 +24,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
         description=[string]
         status=[boolean]
         Due_date=[timestamp]
+        
+        Required Headers:
+        access_token=[string]
 
 * Success Response:
 
@@ -66,7 +69,8 @@ Providing a todo list services which can be added, manipulated, and deleted late
 
 * Data Params:
 
-        None
+        Required Headers:
+        access_token=[string]
 
 * Success Response:
 
@@ -117,6 +121,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
         Required:
 
         id=[integer]
+        
+        Required Headers:
+        access_token=[string]
 
 * Data Params:
 
@@ -162,6 +169,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
         Required:
 
         id=[integer]
+        
+        Required Headers:
+        access_token=[string]
 
 * Data Params:
 
@@ -215,6 +225,9 @@ Providing a todo list services which can be added, manipulated, and deleted late
         Required:
 
         id=[integer]
+        
+        Required Headers:
+        access_token=[string]
 
 * Data Params:
 
