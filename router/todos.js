@@ -7,7 +7,7 @@ const Access = require("../middlewares/access.js")
 router.post("/",TodoController.post)
 router.get("/",TodoController.get)
 router.get("/:id",Access.todoModAuthorize,TodoController.getSpecific)
-router.put("/:id",Access.todoModAuthorize,TodoController.putSpecific)
+router.patch("/:id",Access.todoModAuthorize,TodoController.patchSpecific)
 router.delete("/:id",Access.todoModAuthorize,TodoController.delSpecific)
 
 

@@ -41,7 +41,7 @@ class TodoController {
             next(err)
         }
     }
-    static async putSpecific (req,res,next) {
+    static async patchSpecific (req,res,next) {
         let form = {
             status: req.body.status,
         }
