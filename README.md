@@ -5,7 +5,7 @@
 **Create New Todo**
 ----
 * Client-Side Deploy Link:
-        https://kanban-idz.web.app/
+        https://fancy-todo-idz.web.app/
 
 * Server-Side Deploy Link /
         API Endpoint Base URL:
