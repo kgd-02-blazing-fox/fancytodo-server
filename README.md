@@ -4,7 +4,12 @@
 
 **Create New Todo**
 ----
-  Create new Task to put on todo list
+* Client-Side Deploy Link:
+        https://kanban-idz.web.app/
+
+* Server-Side Deploy Link /
+        API Endpoint Base URL:
+        https://fancy-todo-idz.herokuapp.com/
 
 * **URL**
 
