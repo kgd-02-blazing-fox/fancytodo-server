@@ -1,32 +1,56 @@
-const { Todo } = require('../models/index.js')
+const { Todo, UserProject } = require('../models');
 
-async function  authorization(req, res, next) {
-  try {
-    console.log(req.params.id,'<<<<<<<<<<<<<')
+module.exports = {
+    authorizeUser: (req, res, next) => {
+        const { id } = req.params;
 
-    const data = await Todo.findOne({
-      where: {
-        id: req.params.id
-      }
-    })
-    console.log(data,'<<<<<<<<<<<<<')
-    console.log(req.currentUserId,'>>>>>>>>>')
-
-    if (data) {
-      if (data.UserId == req.currentUserId) {
-        next()
-      } else {
-        next({ name: 'Unauthorized' })
-      }
-    } else {
-      next({
-        name: 'NotFound',
-        errors: [{ msg: 'Data Not Found' }]
-      })
+        Todo
+            .findByPk(id)
+            .then(result => {
+                if(result) {
+                    if(result.UserId === req.userId) {
+                        next();
+                    } else {
+                        throw {
+                            msg: "Unauthorized User",
+                            code: 401
+                        }
+                    }
+                } else {
+                    throw {
+                        msg: `no task with id ${id} found`,
+                        code: 404
+                    }
+                }
+            })
+            .catch(err => {
+                next(err);
+            })
+    },
+    authorizeProjectMember: (req, res, next) => {
+        const UserId = req.userId;
+        const ProjectId = req.params.id ? req.params.id : req.params.project_id;
+        console.log(UserId);
+        console.log(ProjectId);
+        UserProject
+            .findOne({
+                where: {
+                    UserId,
+                    ProjectId
+                }
+            })
+            .then(result => {
+                if(result) {
+                    next();
+                } else {
+                    throw {
+                        msg: "Unauthorize user",
+                        code: 401
+                    }
+                }
+            })
+            .catch(err => {
+                next(err);
+            })
     }
-  } catch (err) {
-    next({ name: 'Unauthorized' })
-  }
 }
-
-module.exports = authorization

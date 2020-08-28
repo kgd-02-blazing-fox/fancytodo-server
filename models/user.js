@@ -1,56 +1,63 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-const { generatePass } = require('../helpers/bcrypt.js')
+const { hashPassword } = require('../helpers/bcrypt.js');
+
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-      User.hasMany(models.Todo)
-    }
-  };
+
+  const { Model } = sequelize.Sequelize;
+
+  class User extends Model {}
+
   User.init({
+    name: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate: {
+        notEmpty: {
+          msg: "Name cant be left empty"
+        }
+      }
+    },
     email: {
       type: DataTypes.STRING,
+      allowNull:false,
       unique: {
         args: true,
-        msg: "email has been used"
+        msg: "email already registered"
       },
-      validate:{
+      validate: {
         isEmail: {
-          args: true,
-          msg: "Please enter the right email format"
+          msg: "Invalid email format"
         },
+        notEmpty: {
+          msg: "password cant be left empty"
+        }
       }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull:false,
       validate: {
-        notNull: {
-          args: true,
-          msg: 'Password Required.'
-        },
         len: {
-          args: [8, 53],
-          msg: 'Password length must between 8 or 53 Characters.'
+          args: [8],
+          msg: "password must contain at least 8 character"
+        },
+        notEmpty: {
+          msg: "password cant be left empty"
         }
       }
     }
   }, {
-    sequelize,
-    modelName: 'User',
     hooks: {
-      beforeCreate: (user, options) => {
-          user.password = generatePass(user.password);
+      beforeCreate(user) {
+        user.password = hashPassword(user.password);
       }
-    },
+    },  
+    sequelize,
+    modelName: "User"
   });
+  User.associate = function(models) {
+    User.hasMany(models.Todo);
+    User.belongsToMany(models.Project, { through: models.UserProject })
+  };
   return User;
 };

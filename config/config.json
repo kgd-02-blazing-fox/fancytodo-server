@@ -2,9 +2,10 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "fancytodo-server",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "database": "db_fancytodo_g",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false
   },
   "test": {
     "username": "root",
@@ -14,10 +15,6 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "use_env_variable":"DATABASE_URL"
   }
 }

@@ -1,69 +1,86 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Todo extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-      Todo.belongsTo(models.User)
-    }
-  };
+  const { Model } = sequelize.Sequelize;
+
+  class Todo extends Model {}
+
   Todo.init({
     title: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
-          args: true,
-          msg: "Title cannot be empty"
+          msg: "title can\'t be empty"
         }
       }
     },
     description: {
       type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Description cannot be empty"
-        }
-      }
+      defaultValue: "No description"
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
       validate: {
         notEmpty: {
-          args: true,
-          msg: "Status cannot be empty"
+          msg: "status can\'t be empty"
         }
       }
     },
     due_date: {
       type: DataTypes.DATE,
-      validate :
-      {
-        makes_sense(value) {
-          if(value < new Date()) {
-            throw new Error("That time is already passed")
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "due_date can\'t be empty"
+        },
+        isDate: {
+          msg: "due_date input must be in date format"
+        },
+        isFuture(date) {
+          console.log(date);
+          let today = new Date();
+          console.log(today);
+          if (date < today) {
+            throw new Error('it\'s either today or future date for due_date');
           }
         }
       }
     },
-    UserId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Todo',
-    hooks:
-      {
-        beforeCreate: (data, option) =>
-        {
-          data.status = "Unfinished";
-        }
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Users",
+        key: 'id'
       },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    },
+    ProjectId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Projects",
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    }
+  }, {
+    hooks: {
+      beforeCreate(todo, option) {
+        if(!todo.description) {
+          todo.description = "No description"
+        }
+      }
+    },
+    sequelize,
+    modelName: "Todo"
   });
+
+  Todo.associate = function(models) {
+    Todo.belongsTo(models.User);
+    Todo.belongsTo(models.Project);
+  };
   return Todo;
 };
