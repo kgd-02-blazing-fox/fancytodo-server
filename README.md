@@ -2,14 +2,13 @@
 
 ## API Documentation
 
-**Create New Todo**
-----
-* Client-Side Deploy Link:
+
+<!-- * Client-Side Deploy Link:
         https://fancy-todo-idz.web.app/
 
 * Server-Side Deploy Link /
         API Endpoint Base URL:
-        https://fancy-todo-idz.herokuapp.com/
+        https://fancy-todo-idz.herokuapp.com/ -->
 
 * **URL**
 
